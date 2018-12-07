@@ -51,7 +51,7 @@ $app->match('/register/list', function (Symfony\Component\HttpFoundation\Request
 		'r_attend_webinar', 
 		'r_firstname', 
 		'r_email', 
-		'r_email_verified', 
+		'r_email_sent', 
 		'r_datetime', 
 
     );
@@ -170,7 +170,7 @@ $app->match('/register', function () use ($app) {
 		'r_attend_webinar', 
 		'r_firstname', 
 		'r_email', 
-		'r_email_verified', 
+		'r_email_sent', 
 		'r_datetime', 
 
     );
@@ -195,7 +195,7 @@ $app->match('/register/create', function () use ($app) {
 		'r_attend_webinar' => '', 
 		'r_firstname' => '', 
 		'r_email' => '', 
-		'r_email_verified' => '', 
+		'r_email_sent' => '', 
 		'r_datetime' => '', 
 
     );
@@ -209,7 +209,7 @@ $app->match('/register/create', function () use ($app) {
 	$form = $form->add('r_attend_webinar', 'text', array('required' => true));
 	$form = $form->add('r_firstname', 'text', array('required' => true));
 	$form = $form->add('r_email', 'text', array('required' => true));
-	$form = $form->add('r_email_verified', 'text', array('required' => true));
+	$form = $form->add('r_email_sent', 'text', array('required' => true));
 	$form = $form->add('r_datetime', 'text', array('required' => true));
 
 
@@ -222,8 +222,8 @@ $app->match('/register/create', function () use ($app) {
         if ($form->isValid()) {
             $data = $form->getData();
 
-            $update_query = "INSERT INTO `register` (`r_s_id`, `r_live_link`, `r_attend_webinar`, `r_firstname`, `r_email`, `r_email_verified`, `r_datetime`) VALUES (?, ?, ?, ?, ?, ?, ?)";
-            $app['db']->executeUpdate($update_query, array($data['r_s_id'], $data['r_live_link'], $data['r_attend_webinar'], $data['r_firstname'], $data['r_email'], $data['r_email_verified'], $data['r_datetime']));            
+            $update_query = "INSERT INTO `register` (`r_s_id`, `r_live_link`, `r_attend_webinar`, `r_firstname`, `r_email`, `r_email_sent`, `r_datetime`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            $app['db']->executeUpdate($update_query, array($data['r_s_id'], $data['r_live_link'], $data['r_attend_webinar'], $data['r_firstname'], $data['r_email'], $data['r_email_sent'], $data['r_datetime']));            
 
 
             $app['session']->getFlashBag()->add(
@@ -268,7 +268,7 @@ $app->match('/register/edit/{id}', function ($id) use ($app) {
 		'r_attend_webinar' => $row_sql['r_attend_webinar'], 
 		'r_firstname' => $row_sql['r_firstname'], 
 		'r_email' => $row_sql['r_email'], 
-		'r_email_verified' => $row_sql['r_email_verified'], 
+		'r_email_sent' => $row_sql['r_email_sent'], 
 		'r_datetime' => $row_sql['r_datetime'], 
 
     );
@@ -282,7 +282,7 @@ $app->match('/register/edit/{id}', function ($id) use ($app) {
 	$form = $form->add('r_attend_webinar', 'text', array('required' => true));
 	$form = $form->add('r_firstname', 'text', array('required' => true));
 	$form = $form->add('r_email', 'text', array('required' => true));
-	$form = $form->add('r_email_verified', 'text', array('required' => true));
+	$form = $form->add('r_email_sent', 'text', array('required' => true));
 	$form = $form->add('r_datetime', 'text', array('required' => true));
 
 
@@ -295,8 +295,8 @@ $app->match('/register/edit/{id}', function ($id) use ($app) {
         if ($form->isValid()) {
             $data = $form->getData();
 
-            $update_query = "UPDATE `register` SET `r_s_id` = ?, `r_live_link` = ?, `r_attend_webinar` = ?, `r_firstname` = ?, `r_email` = ?, `r_email_verified` = ?, `r_datetime` = ? WHERE `r_id` = ?";
-            $app['db']->executeUpdate($update_query, array($data['r_s_id'], $data['r_live_link'], $data['r_attend_webinar'], $data['r_firstname'], $data['r_email'], $data['r_email_verified'], $data['r_datetime'], $id));            
+            $update_query = "UPDATE `register` SET `r_s_id` = ?, `r_live_link` = ?, `r_attend_webinar` = ?, `r_firstname` = ?, `r_email` = ?, `r_email_sent` = ?, `r_datetime` = ? WHERE `r_id` = ?";
+            $app['db']->executeUpdate($update_query, array($data['r_s_id'], $data['r_live_link'], $data['r_attend_webinar'], $data['r_firstname'], $data['r_email'], $data['r_email_sent'], $data['r_datetime'], $id));            
 
 
             $app['session']->getFlashBag()->add(
@@ -360,7 +360,7 @@ $app->match('/register/downloadList', function (Symfony\Component\HttpFoundation
 		'r_attend_webinar', 
 		'r_firstname', 
 		'r_email', 
-		'r_email_verified', 
+		'r_email_sent', 
 		'r_datetime', 
 
     );

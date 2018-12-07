@@ -49,6 +49,8 @@ $app->match('/webinar/list', function (Symfony\Component\HttpFoundation\Request 
 		'w_name', 
 		'w_presenter_name', 
 		'w_intro_video', 
+        'w_webinar_video',
+        'w_thanks_video',
 		'w_introduction', 
 		'w_sub_title', 
 		'w_explaination', 
@@ -60,9 +62,11 @@ $app->match('/webinar/list', function (Symfony\Component\HttpFoundation\Request 
 		'int(11)', 
 		'varchar(500)', 
 		'varchar(255)', 
+		'varchar(500)', 
 		'text', 
-		'text', 
-		'text', 
+        'text', 
+        'text', 
+		'varchar(500)', 
 		'text', 
 		'datetime', 
 
@@ -167,10 +171,10 @@ $app->match('/webinar', function () use ($app) {
 		'w_id', 
 		'w_name', 
 		'w_presenter_name', 
-		'w_intro_video', 
-		'w_introduction', 
+		'w_intro_video',
+        'w_webinar_video',
+        'w_thanks_video', 
 		'w_sub_title', 
-		'w_explaination', 
 		'w_add_date', 
 
     );
@@ -193,6 +197,8 @@ $app->match('/webinar/create', function () use ($app) {
 		'w_name' => '', 
 		'w_presenter_name' => '', 
 		'w_intro_video' => '', 
+        'w_webinar_video' => '',
+        'w_thanks_video' => '',
 		'w_introduction' => '', 
 		'w_sub_title' => '', 
 		'w_explaination' => '', 
@@ -207,7 +213,9 @@ $app->match('/webinar/create', function () use ($app) {
 	$form = $form->add('w_name', 'text', array('required' => true));
 	$form = $form->add('w_presenter_name', 'text', array('required' => true));
 	$form = $form->add('w_intro_video', 'textarea', array('required' => true));
-	$form = $form->add('w_introduction', 'textarea', array('required' => true));
+    $form = $form->add('w_webinar_video', 'textarea', array('required' => true));
+    $form = $form->add('w_thanks_video', 'textarea', array('required' => true));
+    $form = $form->add('w_introduction', 'textarea', array('required' => true));
 	$form = $form->add('w_sub_title', 'textarea', array('required' => true));
 	$form = $form->add('w_explaination', 'textarea', array('required' => true));
 
@@ -221,8 +229,8 @@ $app->match('/webinar/create', function () use ($app) {
         if ($form->isValid()) {
             $data = $form->getData();
 
-            $update_query = "INSERT INTO `webinar` (`w_name`, `w_presenter_name`, `w_intro_video`, `w_introduction`, `w_sub_title`, `w_explaination`) VALUES (?, ?, ?, ?, ?, ?)";
-            $app['db']->executeUpdate($update_query, array($data['w_name'], $data['w_presenter_name'], $data['w_intro_video'], $data['w_introduction'], $data['w_sub_title'], $data['w_explaination']));            
+            $update_query = "INSERT INTO `webinar` (`w_name`, `w_presenter_name`, `w_intro_video`, `w_webinar_video`, `w_thanks_video`, `w_introduction`, `w_sub_title`, `w_explaination`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            $app['db']->executeUpdate($update_query, array($data['w_name'], $data['w_presenter_name'], $data['w_intro_video'],$data['w_webinar_video'],$data['w_thanks_video'], $data['w_introduction'], $data['w_sub_title'], $data['w_explaination']));            
 
 
             $app['session']->getFlashBag()->add(
@@ -265,7 +273,9 @@ $app->match('/webinar/edit/{id}', function ($id) use ($app) {
 		'w_name' => $row_sql['w_name'], 
 		'w_presenter_name' => $row_sql['w_presenter_name'], 
 		'w_intro_video' => $row_sql['w_intro_video'], 
-		'w_introduction' => $row_sql['w_introduction'], 
+        'w_webinar_video' => $row_sql['w_webinar_video'], 
+        'w_thanks_video' => $row_sql['w_thanks_video'], 
+        'w_introduction' => $row_sql['w_introduction'], 
 		'w_sub_title' => $row_sql['w_sub_title'], 
 		'w_explaination' => $row_sql['w_explaination'], 
 		 
@@ -279,7 +289,9 @@ $app->match('/webinar/edit/{id}', function ($id) use ($app) {
 	$form = $form->add('w_name', 'text', array('required' => true));
 	$form = $form->add('w_presenter_name', 'text', array('required' => true));
 	$form = $form->add('w_intro_video', 'textarea', array('required' => true));
-	$form = $form->add('w_introduction', 'textarea', array('required' => true));
+    $form = $form->add('w_webinar_video', 'textarea', array('required' => true));
+    $form = $form->add('w_thanks_video', 'textarea', array('required' => true));
+    $form = $form->add('w_introduction', 'textarea', array('required' => true));
 	$form = $form->add('w_sub_title', 'textarea', array('required' => true));
 	$form = $form->add('w_explaination', 'textarea', array('required' => true));
 
@@ -293,8 +305,8 @@ $app->match('/webinar/edit/{id}', function ($id) use ($app) {
         if ($form->isValid()) {
             $data = $form->getData();
 
-            $update_query = "UPDATE `webinar` SET `w_name` = ?, `w_presenter_name` = ?, `w_intro_video` = ?, `w_introduction` = ?, `w_sub_title` = ?, `w_explaination` = ? WHERE `w_id` = ?";
-            $app['db']->executeUpdate($update_query, array($data['w_name'], $data['w_presenter_name'], $data['w_intro_video'], $data['w_introduction'], $data['w_sub_title'], $data['w_explaination'], $id));            
+            $update_query = "UPDATE `webinar` SET `w_name` = ?, `w_presenter_name` = ?, `w_intro_video` = ?,  `w_webinar_video` = ?,  `w_thanks_video` = ?, `w_introduction` = ?, `w_sub_title` = ?, `w_explaination` = ? WHERE `w_id` = ?";
+            $app['db']->executeUpdate($update_query, array($data['w_name'], $data['w_presenter_name'], $data['w_intro_video'], $data['w_webinar_video'], $data['w_thanks_video'], $data['w_introduction'], $data['w_sub_title'], $data['w_explaination'], $id));            
 
 
             $app['session']->getFlashBag()->add(
@@ -355,7 +367,9 @@ $app->match('/webinar/downloadList', function (Symfony\Component\HttpFoundation\
 		'w_id', 
 		'w_name', 
 		'w_presenter_name', 
-		'w_intro_video', 
+        'w_intro_video', 
+        'w_webinar_video', 
+        'w_thanks_video', 
 		'w_introduction', 
 		'w_sub_title', 
 		'w_explaination', 
@@ -367,9 +381,11 @@ $app->match('/webinar/downloadList', function (Symfony\Component\HttpFoundation\
 		'int(11)', 
 		'varchar(500)', 
 		'varchar(255)', 
-		'text', 
-		'text', 
-		'text', 
+		'varchar(500)', 
+        'text', 
+        'text', 
+        'text', 
+		'varchar(500)', 
 		'text', 
 		'datetime', 
 

@@ -43,9 +43,25 @@
 									</div>
 
 									<div class='form-group'>
-									    {{ form_label(form.w_intro_video) }}
-									    {{ form_widget(form.w_intro_video, { attr: { 'class': 'form-control textarea', 'style': 'width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;' }}) }}
-									</div>
+                                        {{ form_label(form.w_intro_video) }}
+                                        <br><samll > This video is youtube url of Thanks Video.  Play after user successfully register for seminar</small>
+
+                                        {{ form_widget(form.w_intro_video, { attr: { 'class': 'form-control', 'style': 'width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;' }}) }}
+                                    </div>
+
+                                    <div class='form-group'>
+                                        {{ form_label(form.w_webinar_video) }}
+                                        <br><samll > This video is youtube url of Webinar Video. Play at shedule time only</small>
+
+                                        {{ form_widget(form.w_webinar_video, { attr: { 'class': 'form-control', 'style': 'width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;' }}) }}
+                                    </div>
+
+                                    <div class='form-group'>
+                                        {{ form_label(form.w_thanks_video) }}
+                                        <br><samll > This video is youtube url of Thanks Video.  Play after user successfully register for seminar</small>
+
+                                        {{ form_widget(form.w_thanks_video, { attr: { 'class': 'form-control', 'style': 'width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;' }}) }}
+                                    </div>
 
 									<div class='form-group'>
 									    {{ form_label(form.w_introduction) }}
@@ -54,7 +70,7 @@
 
 									<div class='form-group'>
 									    {{ form_label(form.w_sub_title) }}
-									    {{ form_widget(form.w_sub_title, { attr: { 'class': 'form-control textarea', 'style': 'width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;' }}) }}
+									    {{ form_widget(form.w_sub_title, { attr: { 'class': 'form-control', 'style': 'width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;' }}) }}
 									</div>
 
 									<div class='form-group'>
