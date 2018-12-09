@@ -42,7 +42,7 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
 				'dbname'   => 'webinar',
 				'host'     => 'localhost',
 				'user'     => 'root',
-				'password' => '123',
+				'password' => '',
 				'charset'  => 'utf8',
 			),
 		)

@@ -212,9 +212,9 @@ $app->match('/webinar/create', function () use ($app) {
 
 	$form = $form->add('w_name', 'text', array('required' => true));
 	$form = $form->add('w_presenter_name', 'text', array('required' => true));
-	$form = $form->add('w_intro_video', 'textarea', array('required' => true));
+	$form = $form->add('w_intro_video', 'textarea', array('required' => false));
     $form = $form->add('w_webinar_video', 'textarea', array('required' => true));
-    $form = $form->add('w_thanks_video', 'textarea', array('required' => true));
+    $form = $form->add('w_thanks_video', 'textarea', array('required' => false));
     $form = $form->add('w_introduction', 'textarea', array('required' => true));
 	$form = $form->add('w_sub_title', 'textarea', array('required' => true));
 	$form = $form->add('w_explaination', 'textarea', array('required' => true));
@@ -288,9 +288,9 @@ $app->match('/webinar/edit/{id}', function ($id) use ($app) {
 
 	$form = $form->add('w_name', 'text', array('required' => true));
 	$form = $form->add('w_presenter_name', 'text', array('required' => true));
-	$form = $form->add('w_intro_video', 'textarea', array('required' => true));
+	$form = $form->add('w_intro_video', 'textarea', array('required' => false));
     $form = $form->add('w_webinar_video', 'textarea', array('required' => true));
-    $form = $form->add('w_thanks_video', 'textarea', array('required' => true));
+    $form = $form->add('w_thanks_video', 'textarea', array('required' => false));
     $form = $form->add('w_introduction', 'textarea', array('required' => true));
 	$form = $form->add('w_sub_title', 'textarea', array('required' => true));
 	$form = $form->add('w_explaination', 'textarea', array('required' => true));
