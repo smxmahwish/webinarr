@@ -42,11 +42,13 @@
                                     </div>
 
                                     <div class='form-group'>
-                                        {{ form_label(form.s_start) }}
+                                    <label> Start Time (UTC GMT+00:00)</label>
+
                                         {{ form_widget(form.s_start, { attr: { 'class': 'form-control' }}) }}
                                     </div>
                                     <div class='form-group'>
-                                        {{ form_label(form.s_end) }}
+                                        
+                                    <label> End Time (UTC GMT+00:00)</label>
                                         {{ form_widget(form.s_end, { attr: { 'class': 'form-control' }}) }}
                                     </div>
 
