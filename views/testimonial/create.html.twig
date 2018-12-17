@@ -31,20 +31,24 @@
                                     <h3 class="box-title"></h3>
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
+                                 <div class='form-group'>
+                                    <label for="form_s_date_time" class="required">T w_id</label> 
+                                    <select name="t_w_id"data-width="100%" class ="form-control">
+                                        {% for onewebinar in webinar %}
+                                            <option value="{{ onewebinar.w_id }}"  >{{ onewebinar.w_name | trans }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    </div>
+
 
 									<div class='form-group'>
-									    {{ form_label(form.t_r_id) }}
-									    {{ form_widget(form.t_r_id, { attr: { 'class': 'form-control' }}) }}
+									    {{ form_label(form.t_name) }}
+									    {{ form_widget(form.t_name, { attr: { 'class': 'form-control' }}) }}
 									</div>
 
 									<div class='form-group'>
 									    {{ form_label(form.t_message) }}
 									    {{ form_widget(form.t_message, { attr: { 'class': 'form-control textarea', 'style': 'width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;' }}) }}
-									</div>
-
-									<div class='form-group'>
-									    {{ form_label(form.t_datetime) }}
-									    {{ form_widget(form.t_datetime, { attr: { 'class': 'form-control' }}) }}
 									</div>
 
                                                   

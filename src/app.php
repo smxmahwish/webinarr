@@ -53,5 +53,16 @@ $app['debug'] = true;
 	// array of REGEX column name to display for foreigner key insted of ID
 	// default used :'name','title','e?mail','username'
 $app['usr_search_names_foreigner_key'] = array();
+$app['swiftmailer.options'] = array(
+    'host' => 'smtp.gmail.com',
+    'port' => 80,
+    'username' => '',
+    'password' => '',
+    'encryption' => 'tls',
+    'auth_mode' => null
+    );
+
+$app['swiftmailer.use_spool'] = false;
+$app->register(new Silex\Provider\SwiftmailerServiceProvider());
 
 return $app;

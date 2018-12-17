@@ -46,7 +46,8 @@ $app->match('/testimonial/list', function (Symfony\Component\HttpFoundation\Requ
     
     $table_columns = array(
 		't_id', 
-		't_r_id', 
+		't_w_id', 
+        't_name', 
 		't_message', 
 		't_datetime', 
 
@@ -54,7 +55,8 @@ $app->match('/testimonial/list', function (Symfony\Component\HttpFoundation\Requ
     
     $table_columns_type = array(
 		'int(11)', 
-		'int(11)', 
+		'int(11)',
+        'varchar(200)', 
 		'text', 
 		'datetime', 
 
@@ -157,7 +159,8 @@ $app->match('/testimonial', function () use ($app) {
     
 	$table_columns = array(
 		't_id', 
-		't_r_id', 
+        't_w_id',
+		't_name', 
 		't_message', 
 		't_datetime', 
 
@@ -178,20 +181,18 @@ $app->match('/testimonial', function () use ($app) {
 $app->match('/testimonial/create', function () use ($app) {
     
     $initial_data = array(
-		't_r_id' => '', 
+		't_name' => '', 
 		't_message' => '', 
-		't_datetime' => '', 
-
+		
     );
 
     $form = $app['form.factory']->createBuilder('form', $initial_data);
 
 
 
-	$form = $form->add('t_r_id', 'text', array('required' => true));
+	$form = $form->add('t_name', 'text', array('required' => true));
 	$form = $form->add('t_message', 'textarea', array('required' => true));
-	$form = $form->add('t_datetime', 'text', array('required' => true));
-
+	
 
     $form = $form->getForm();
 
@@ -202,8 +203,8 @@ $app->match('/testimonial/create', function () use ($app) {
         if ($form->isValid()) {
             $data = $form->getData();
 
-            $update_query = "INSERT INTO `testimonial` (`t_r_id`, `t_message`, `t_datetime`) VALUES (?, ?, ?)";
-            $app['db']->executeUpdate($update_query, array($data['t_r_id'], $data['t_message'], $data['t_datetime']));            
+            $update_query = "INSERT INTO `testimonial` (`t_w_id` , `t_name`, `t_message`)VALUES (?, ?, ?)";
+            $app['db']->executeUpdate($update_query, array($_POST['t_w_id'] , $data['t_name'], $data['t_message']));            
 
 
             $app['session']->getFlashBag()->add(
@@ -216,9 +217,12 @@ $app->match('/testimonial/create', function () use ($app) {
 
         }
     }
+      $find_sql="SELECT * FROM `webinar`";
+    $rows_sql = $app['db']->fetchAll($find_sql, array());
+
 
     return $app['twig']->render('testimonial/create.html.twig', array(
-        "form" => $form->createView()
+        "form" => $form->createView(),"webinar"=>$rows_sql
     ));
         
 })
@@ -243,8 +247,9 @@ $app->match('/testimonial/edit/{id}', function ($id) use ($app) {
 
     
     $initial_data = array(
-		't_r_id' => $row_sql['t_r_id'], 
-		't_message' => $row_sql['t_message'], 
+		't_w_id' => $row_sql['t_w_id'], 
+        't_name' => $row_sql['t_name'], 
+        't_message' => $row_sql['t_message'], 
 		't_datetime' => $row_sql['t_datetime'], 
 
     );
@@ -252,8 +257,9 @@ $app->match('/testimonial/edit/{id}', function ($id) use ($app) {
 
     $form = $app['form.factory']->createBuilder('form', $initial_data);
 
-
-	$form = $form->add('t_r_id', 'text', array('required' => true));
+    $form = $form->add('t_w_id', 'hidden', array('required' => true));
+    
+	$form = $form->add('t_name', 'text', array('required' => true));
 	$form = $form->add('t_message', 'textarea', array('required' => true));
 	$form = $form->add('t_datetime', 'text', array('required' => true));
 
@@ -267,8 +273,8 @@ $app->match('/testimonial/edit/{id}', function ($id) use ($app) {
         if ($form->isValid()) {
             $data = $form->getData();
 
-            $update_query = "UPDATE `testimonial` SET `t_r_id` = ?, `t_message` = ?, `t_datetime` = ? WHERE `t_id` = ?";
-            $app['db']->executeUpdate($update_query, array($data['t_r_id'], $data['t_message'], $data['t_datetime'], $id));            
+            $update_query = "UPDATE `testimonial` SET `t_w_id` = ?, `t_name` = ?, `t_message` = ?, `t_datetime` = ? WHERE `t_id` = ?";
+            $app['db']->executeUpdate($update_query, array($_POST['t_w_id'],$data['t_name'], $data['t_message'], $data['t_datetime'], $id));            
 
 
             $app['session']->getFlashBag()->add(
@@ -281,9 +287,13 @@ $app->match('/testimonial/edit/{id}', function ($id) use ($app) {
 
         }
     }
+     $find_sql="SELECT * FROM `webinar`";
+    $allwebinar = $app['db']->fetchAll($find_sql, array());
+
 
     return $app['twig']->render('testimonial/edit.html.twig', array(
-        "form" => $form->createView(),
+        "form" => $form->createView(),"webinar"=>$allwebinar,"old_w_id"=> $row_sql['t_w_id'],
+
         "id" => $id
     ));
         
@@ -327,7 +337,8 @@ $app->match('/testimonial/downloadList', function (Symfony\Component\HttpFoundat
     
     $table_columns = array(
 		't_id', 
-		't_r_id', 
+        't_w_id',
+		't_name', 
 		't_message', 
 		't_datetime', 
 
@@ -336,6 +347,7 @@ $app->match('/testimonial/downloadList', function (Symfony\Component\HttpFoundat
     $table_columns_type = array(
 		'int(11)', 
 		'int(11)', 
+        'varchar(200)',
 		'text', 
 		'datetime', 
 
